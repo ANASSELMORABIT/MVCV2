@@ -1,0 +1,65 @@
+@model ProgramaRafaAnass.Models.APILyrics.Root
+
+@{
+    ViewData["Title"] = "Lyrics";
+}
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="~/css/styles.css">
+    <title>Get Lyrics - AnafaelBeats</title>
+</head>
+<body>
+    <section>
+        <div class="swiper">
+            <div class="swiper-wrapper">
+                <div class="swiper-slide">
+                    <div class="gradient"></div>
+                </div>
+            </div>
+        </div>
+    </section>
+    <section>
+        <div class="container">
+            <div class="background-img">
+                <div class="login-box">
+                    <h2>Get Lyrics</h2>
+                    <form method="post">
+                        <div class="user-box">
+                            <input type="text" id="artist" name="artist" required placeholder="Artist">
+                            <label>Artist</label>
+                        </div>
+                        <div class="user-box">
+                            <input type="text" id="songTitle" name="songTitle" required placeholder="Song Title">
+                            <label>Song Title</label>
+                        </div>
+                        <button type="submit">
+                            <span></span>
+                            <span></span>
+                            <span></span>
+                            <span></span>
+                            Submit
+                        </button>
+                    </form>
+                    @if (Model != null && !string.IsNullOrEmpty(Model.lyrics))
+                    {
+                        <div class="login-box">
+                            <h2>{{Model.Artist}}'s Lyrics </h2>
+                            <pre>@Model.lyrics</pre>
+                        </div>
+                    }
+                    else if (Model != null)
+                    {
+                        <div class="login-box">
+                            <h2>No lyrics found for the specified song.</h2>
+                        </div>
+                    }
+                </div>
+            </div>
+        </div>
+    </section>
+</body>
+</html>

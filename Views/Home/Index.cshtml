@@ -1,0 +1,132 @@
+﻿@model ProgramaRafaAnass.Models.API1.Root
+
+@{
+    ViewData["Title"] = "Index";
+}
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Albums</title>
+    <link rel="stylesheet" href="~/css/smaha.css">
+    <style>
+*{
+    margin: 0;
+    padding: 0;
+    -webkit-box-sizing: border-box;
+            box-sizing: border-box;
+  }
+  
+  h1{
+    font-size: 2.5rem;
+    font-family: 'Montserrat';
+    font-weight: normal;
+    color: white;
+    text-align: center;
+    margin: 2rem 0;
+  }
+  body{
+    background-color: #040a22;
+  }
+  
+  .wrapper{
+    width: 90%;
+    margin: 0 auto;
+    max-width: 80rem;
+    	color: white;
+  }
+  
+  .cols{
+    display: -webkit-box;
+    display: -ms-flexbox;
+    display: flex;
+    -ms-flex-wrap: wrap;
+    flex-wrap: wrap;
+    -webkit-box-pack: center;
+    -ms-flex-pack: center;
+    justify-content: center;
+    color: white;
+  }
+    .col {
+            flex: 0 1 calc(33.333% - 20px);
+            margin: 10px;
+            perspective: 1000px;
+            color: white;
+        }
+        .container {
+            position: relative;
+            width: 100%;
+            height: 300px;
+            transform-style: preserve-3d;
+            transition: transform 0.5s;
+        }
+        .front, .back {
+            position: absolute;
+            width: 100%;
+            height: 100%;
+            backface-visibility: hidden;
+            border-radius: 10px;
+            background-size: cover;
+            background-position: center;
+        }
+        .front {
+            background: #FFF;
+        }
+        .back {
+            background-image: linear-gradient(315deg, #4dccc6 0%,#5b37eb,#f1307e, #96e4df 74%);
+            color: white;
+            transform: rotateY(180deg);
+        }
+        .inner {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            height: 100%;
+            color: white;
+            text-align: center;
+        }
+        .col:hover .container {
+            transform: rotateY(180deg);
+        }
+        
+    </style>
+</head>
+<body>
+    <div class="wrapper">
+        <h1>Albums</h1>
+        <div class="cols">
+            @if (Model != null && Model.chart_items != null)
+            {
+                @foreach (var chartItem in Model.chart_items)
+                {
+                    var album = chartItem.item;
+                    <div class="col" ontouchstart="this.classList.toggle('hover');">
+                        <div class="container">
+                            <div class="front" style="background-image: url(@album.cover_art_thumbnail_url)">
+                                <div class="inner">
+                                    <p>@album.full_title</p>
+                                    <span>@album.artist.name</span>
+                                </div>
+                            </div>
+                            <div class="back">
+                                <div class="inner">
+                                    <p><strong>Fecha de Lanzamiento:</strong> @album.release_date_for_display</p>
+                                    <p><strong>URL:</strong> <a href="@album.url" target="_blank">@album.url</a></p>
+                                    <p><strong>Artista:</strong> @album.artist.name</p>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                }
+            }
+            else
+            {
+                <p>No se encontraron álbumes.</p>
+            }
+        </div>
+    </div>
+</body>
+</html>
